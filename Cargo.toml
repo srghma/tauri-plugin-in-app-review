@@ -1,12 +1,14 @@
 [package]
 name = "tauri-plugin-in-app-review"
 version = "0.1.0"
-authors = [ "You" ]
-description = ""
+authors = ["Gbyte"]
+description = "Allows requesting app ratings within the app, without leaving the current application."
 edition = "2021"
 rust-version = "1.77.2"
 exclude = ["/examples", "/dist-js", "/guest-js", "/node_modules"]
 links = "tauri-plugin-in-app-review"
+license = "MIT"
+repository = "https://github.com/Gbyte-Group/tauri-plugin-in-app-review"
 
 [dependencies]
 tauri = { version = "2.9.5" }

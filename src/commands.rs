@@ -1,8 +1,8 @@
-use tauri::{AppHandle, command, Runtime};
+use tauri::{command, AppHandle, Runtime};
 
 use crate::models::*;
-use crate::Result;
 use crate::InAppReviewExt;
+use crate::Result;
 
 #[command]
 pub(crate) async fn ping<R: Runtime>(
@@ -10,4 +10,9 @@ pub(crate) async fn ping<R: Runtime>(
     payload: PingRequest,
 ) -> Result<PingResponse> {
     app.in_app_review().ping(payload)
+}
+
+#[command]
+pub(crate) async fn request_review<R: Runtime>(app: AppHandle<R>) -> Result<()> {
+    app.in_app_review().request_review()
 }
