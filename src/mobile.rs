@@ -25,12 +25,6 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
 pub struct InAppReview<R: Runtime>(PluginHandle<R>);
 
 impl<R: Runtime> InAppReview<R> {
-    pub fn ping(&self, payload: PingRequest) -> crate::Result<PingResponse> {
-        self.0
-            .run_mobile_plugin("ping", payload)
-            .map_err(Into::into)
-    }
-
     pub fn request_review(&self) -> crate::Result<()> {
         self.0
             .run_mobile_plugin("requestReview", ())

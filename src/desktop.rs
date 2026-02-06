@@ -14,12 +14,6 @@ pub fn init<R: Runtime, C: DeserializeOwned>(
 pub struct InAppReview<R: Runtime>(AppHandle<R>);
 
 impl<R: Runtime> InAppReview<R> {
-    pub fn ping(&self, payload: PingRequest) -> crate::Result<PingResponse> {
-        Ok(PingResponse {
-            value: payload.value,
-        })
-    }
-
     pub fn request_review(&self) -> crate::Result<()> {
         Err(crate::Error::from(std::io::Error::other(
             "In App Review Not Supported This Platform.",

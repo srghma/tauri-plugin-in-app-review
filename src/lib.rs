@@ -12,7 +12,6 @@ mod mobile;
 
 mod commands;
 mod error;
-mod models;
 
 pub use error::{Error, Result};
 
@@ -35,10 +34,7 @@ impl<R: Runtime, T: Manager<R>> crate::InAppReviewExt<R> for T {
 /// Initializes the plugin.
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("in-app-review")
-        .invoke_handler(tauri::generate_handler![
-            commands::ping,
-            commands::request_review
-        ])
+        .invoke_handler(tauri::generate_handler![commands::request_review])
         .setup(|app, api| {
             #[cfg(mobile)]
             let in_app_review = mobile::init(app, api)?;

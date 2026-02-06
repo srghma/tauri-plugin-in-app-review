@@ -4,16 +4,7 @@ import Tauri
 import UIKit
 import WebKit
 
-class PingArgs: Decodable {
-  let value: String?
-}
-
 class InAppReviewPlugin: Plugin {
-  @objc public func ping(_ invoke: Invoke) throws {
-    let args = try invoke.parseArgs(PingArgs.self)
-    invoke.resolve(["value": args.value ?? ""])
-  }
-
   @objc public func requestReview(_ invoke: Invoke) {
     DispatchQueue.main.async {
       if let scene = UIApplication.shared.connectedScenes
