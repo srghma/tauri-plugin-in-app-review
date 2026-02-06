@@ -1,5 +1,7 @@
 # Tauri Plugin in-app-review
 
+[查看中文](./README.zh-CN.md)
+
 Allows requesting app ratings within the app, without leaving the current application.
 
 > ⚠️ iOS only. This plugin relies on Apple StoreKit APIs and is not available on other platforms.
@@ -41,9 +43,7 @@ Configure the plugin permissions in your `capabilities/default.json`:
 
 ```json
 {
-  "permissions": [
-    "in-app-review:default"
-  ]
+  "permissions": ["in-app-review:default"]
 }
 ```
 
@@ -70,7 +70,6 @@ However, this method has no effect in apps that you distribute for beta testing 
 import { requestReview } from '@gbyte/tauri-plugin-in-app-review'
 
 export function SuccessModal({ close }) {
-
   const onSuceess = () => {
     close()
     requestReview()
@@ -81,25 +80,32 @@ export function SuccessModal({ close }) {
       <header>
         <h1>Success!</h1>
       </header>
-      <main>
-        Support this free feature with a quick rating!
-      </main>
+      <main>Support this free feature with a quick rating!</main>
       <footer>
         {/**
-          *
-          * Because this API may not present an alert, don’t call it in response to a button tap or other user action.
-          *
-          * Can see https://developer.apple.com/design/human-interface-guidelines/ratings-and-reviews
-          *
-          */}
+         *
+         * Because this API may not present an alert, don’t call it in response to a button tap or other user action.
+         *
+         * Can see https://developer.apple.com/design/human-interface-guidelines/ratings-and-reviews
+         *
+         */}
         <button onClick={onSuccess}>Yes</button>
         <button onClick={close}>No</button>
       </footer>
     </div>
   )
 }
-
 ```
+
+---
+
+## APIs
+
+### Methods
+
+#### `requestReview()`
+
+Requests a review for the app.
 
 ---
 
