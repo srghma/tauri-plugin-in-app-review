@@ -4,9 +4,11 @@
 
 允许在应用内请求应用评分，而无需离开当前应用程序。
 
-> ⚠️ 仅限 Apple (iOS & macOS)。此插件依赖于 Apple StoreKit API，在其他平台上不可用。
+支持 **iOS** 和 **Android**。
 
 ---
+
+### iOS 策略 (StoreKit)
 
 当您在发布的应用程序中调用此 API 时，系统会显示一个评分和评论请求视图，并为您处理整个过程。尽管您通常会在应用程序的用户体验流程中适时调用此方法，但 App Store 的政策决定了评分和评论请求视图的实际显示。当您的应用调用此 API 时，StoreKit 会使用以下标准：
 
@@ -62,13 +64,37 @@ fn main() {
 }
 ```
 
----
+## 平台支持
+
+- [x] **iOS**: 使用 StoreKit API
+- [x] **Android**: 使用 Google Play In-App Review API
+- [ ] 桌面平台 (不适用)
+
+## Android 特别说明
+
+关于 Google Play In-App Review API：
+- 仅适用于安装了 Google Play 商店的 Android 5.0 (API level 21) 及更高版本。
+- 存在配额限制以防止滥用（通常允许每个用户每年显示几次对话框）。
+- API 不保证对话框一定会显示（取决于配额和 Google Play 政策）。
+- 显示带有星级（1-5）和可选评论的原生评分对话框。
+- API 不会指示用户是否实际进行了评论，也不会指示对话框是否已显示。
+
+### 在 Android 上测试
+
+要在 Android 上测试应用内评价流程：
+1. 在 Google Play Console 中使用 **内部应用分享 (Internal App Sharing)** 或 **内部测试轨道 (Internal Test Track)**。
+2. 必须通过 Google Play 安装您的应用（而不是通过 Android Studio 直接运行）。
+3. 只有从 Google Play 安装时，评价对话框才会出现。
 
 ## 用法 (概念示例)
 
-当您的应用在开发模式下调用此方法时，StoreKit 总是会显示评分和评论请求视图，因此您可以测试用户界面和体验。
+### 测试行为
 
-但是，此方法在您使用 TestFlight 分发测试时无效。
+**iOS:**
+当您的应用在开发模式下调用此方法时，StoreKit 总是会显示评分和评论请求视图，因此您可以测试用户界面和体验。但是，此方法在您使用 TestFlight 分发测试时无效。
+
+**Android:**
+在通过 ADB/Android Studio 安装的调试/开发版本中，对话框通常**不会**出现。您必须使用 Google Play Console 上的内部测试轨道或内部应用分享来可靠地测试审核流程。
 
 ```tsx
 import { requestReview } from '@gbyte/tauri-plugin-in-app-review'
